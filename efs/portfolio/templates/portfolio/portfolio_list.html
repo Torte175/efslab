@@ -36,7 +36,8 @@
             <tr class="bg-info">
                 <th>Portfolio Initial Investments</th>
                 <th>Portfolio Current Investments</th>
-                <th>Grand Total Results</th>
+                <th>Grand Total Dollar</th>
+                <th>Grand Total Euro</th>
             </tr>
             </thead>
             <tbody>
@@ -44,6 +45,7 @@
                     <td>{{ portfolio_initial_investment|floatformat:2|intcomma }}</td>
                     <td>{{ portfolio_current_investments|floatformat:2|intcomma }}</td>
                     <td>{{ portfolio_grand_total|floatformat:2|intcomma }}</td>
+                    <td>{{ portfolio_grand_total_euro|floatformat:2|intcomma }}</td>
                 </tr>
             </tbody>
         </table>
@@ -89,7 +91,8 @@
             <tr class="bg-info">
                 <th>Total of Initial Investments</th>
                 <th>Total of Current Investments</th>
-                <th>Results</th>
+                <th>Results USD</th>
+                <th>Results EUR</th>
             </tr>
             </thead>
             <tbody>
@@ -97,6 +100,8 @@
                     <td>{{ sum_acquired_value|floatformat:2|intcomma }}</td>
                     <td>{{ sum_recent_value|floatformat:2|intcomma }}</td>
                     <td>{{ overall_investment_results|floatformat:2|intcomma }}</td>
+                    <td>{{ overall_investment_results_euro|floatformat:2|intcomma }}</td>
+
                 </tr>
             </tbody>
         </table>
@@ -144,7 +149,9 @@
             <tr class="bg-info">
                 <th>Total of Initial Stocks</th>
                 <th>Total of Current Stocks</th>
-                <th>Results</th>
+                <th>Results Dollar</th>
+                <th>Results Euro</th>
+
             </tr>
             </thead>
             <tbody>
@@ -152,6 +159,7 @@
                     <td>{{ sum_of_initial_stock_value|floatformat:2|intcomma }}</td>
                     <td>{{ sum_current_stocks_value|floatformat:2|intcomma }}</td>
                     <td>{{ stock_result|floatformat:2|intcomma }}</td>
+                    <td>{{ stock_result_euro|floatformat:2|intcomma }}</td>
                 </tr>
             </tbody>
         </table>

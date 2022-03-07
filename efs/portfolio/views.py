@@ -10,6 +10,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CustomerSerializer
 
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 
 now = timezone.now()
 def home(request):
@@ -164,6 +168,21 @@ def portfolio_list(request,pk):
    portfolio_current_investments = float(sum_current_stocks_value) + float(sum_recent_value)
    portfolio_grand_total = portfolio_current_investments - portfolio_initial_investment
 
+   # Currency Converter
+   converter_main_url = 'http://api.currencylayer.com/live?'
+   converter_api_key = 'access_key=c14817e426f3a193217b2151049b4452'
+   currencies = '&currencies=EUR'
+   format = '&format=1'
+   url = converter_main_url + converter_api_key + currencies + format
+   json_data = requests.get(url).json()
+   euro_value = json_data['quotes']['USDEUR']
+
+   #Grand Totals in Euro
+   portfolio_grand_total_euro = portfolio_grand_total * euro_value
+   overall_investment_results_euro = overall_investment_results * euro_value
+   stock_result_euro = stock_result * euro_value
+
+
    return render(request, 'portfolio/portfolio_list.html', {'customers': customers,
                                                        'investments': investments,
                                                        'stocks': stocks,
@@ -175,7 +194,11 @@ def portfolio_list(request,pk):
                                                         'overall_investment_results': overall_investment_results,
                                                         'portfolio_initial_investment': portfolio_initial_investment,
                                                         'portfolio_current_investments': portfolio_current_investments,
-                                                        'portfolio_grand_total': portfolio_grand_total,})
+                                                        'portfolio_grand_total': portfolio_grand_total,
+                                                        'portfolio_grand_total_euro': portfolio_grand_total_euro,
+                                                        'overall_investment_results_euro': overall_investment_results_euro,
+                                                        'stock_result_euro': stock_result_euro,})
+
 
 
 # Lists all customers
